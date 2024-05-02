@@ -25,7 +25,7 @@ export default async function Home() {
     },
   });
   return (
-    <div>
+    <div className="pb-4">
       <Header />
       <div className="px-5 pt-6">
         <Search />
