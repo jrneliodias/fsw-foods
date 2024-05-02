@@ -14,7 +14,7 @@ interface RestaurantDetailProps {
 }
 const RestaurantDetails = ({ restaurant }: RestaurantDetailProps) => {
   return (
-    <header className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-white p-5">
+    <header className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-[#f4f4f4] p-5">
       <div className="flex items-center gap-1">
         <div className="relative h-8 w-8">
           <Image
