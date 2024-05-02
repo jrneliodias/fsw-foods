@@ -5,7 +5,13 @@ import DiscountBadge from "./discount-badge";
 import { Prisma } from "@prisma/client";
 import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
 import { Button } from "./ui/button";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import {
+  BikeIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  TimerIcon,
+} from "lucide-react";
+import { Card } from "./ui/card";
 
 interface ProductDetailProps {
   product: Prisma.ProductGetPayload<{
@@ -83,6 +89,38 @@ const ProductDetails = ({ product }: ProductDetailProps) => {
             <ChevronRightIcon />
           </Button>
         </div>
+      </div>
+      <Card className="mt-6 flex justify-around py-2">
+        <div className="flex flex-col items-center">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <span>Entrega</span>
+            <BikeIcon size={16} />
+          </div>
+          {Number(product.restaurant.deliveryFee) > 0 ? (
+            <p className="text-sm font-semibold">
+              {formatCurrency(Number(product.restaurant.deliveryFee))}
+            </p>
+          ) : (
+            <p className="text-sm font-semibold">Grátis</p>
+          )}
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <span>Entrega</span>
+            <TimerIcon size={16} />
+          </div>
+          {Number(product.restaurant.deliveryFee) > 0 ? (
+            <p className="text-sm font-semibold">
+              {formatCurrency(Number(product.restaurant.deliveryFee))}
+            </p>
+          ) : (
+            <p className="text-sm font-semibold">Grátis</p>
+          )}
+        </div>
+      </Card>
+      <div className="mt-6 space-y-3">
+        <h3 className="font-semibold"> Sobre</h3>
+        <p className="text-sm text-muted-foreground">{product.description}</p>
       </div>
     </header>
   );
