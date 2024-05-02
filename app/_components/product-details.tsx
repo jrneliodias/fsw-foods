@@ -109,13 +109,11 @@ const ProductDetails = ({ product }: ProductDetailProps) => {
             <span>Entrega</span>
             <TimerIcon size={16} />
           </div>
-          {Number(product.restaurant.deliveryFee) > 0 ? (
+          {
             <p className="text-sm font-semibold">
-              {formatCurrency(Number(product.restaurant.deliveryFee))}
+              {product.restaurant.deliveryTimeMinutes} min
             </p>
-          ) : (
-            <p className="text-sm font-semibold">Grátis</p>
-          )}
+          }
         </div>
       </Card>
       <div className="mt-6 space-y-3">
