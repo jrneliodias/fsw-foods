@@ -9,10 +9,10 @@ interface CategoryItemProps {
 
 const CategoryItem = ({ category }: CategoryItemProps) => {
   return (
-    <Button asChild className="hover:bg-card" variant={"ghost"}>
+    <Button asChild className="hover:bg-primary" variant={"ghost"}>
       <Link
         href={`/categories/${category.id}/products`}
-        className="flex items-center justify-center gap-3 rounded-full px-4 py-6 shadow-md "
+        className="flex items-center justify-center gap-3 rounded-full px-4 py-6 shadow-md hover:text-white"
       >
         <Image
           src={category.imageUrl}
