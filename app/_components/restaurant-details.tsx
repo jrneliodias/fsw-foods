@@ -59,19 +59,14 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailProps) => {
       <div className="mt-3 flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
         {restaurant.categories.map((category) => (
           <div
-            className="min-w-[100px] bg-[#F4F4F4] text-center"
+            className="min-w-[100px] rounded-lg border-2 bg-[#F4F4F4] text-center"
             key={category.id}
           >
             <span className="text-xs text-muted-foreground">
-              {" "}
               {category.name}
             </span>
           </div>
         ))}
-      </div>
-      <div className="mt-6 space-y-3">
-        <h3 className="font-semibold"> Sobre</h3>
-        <p className="text-sm text-muted-foreground">{restaurant.name}</p>
       </div>
     </header>
   );
