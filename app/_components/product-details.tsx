@@ -16,6 +16,16 @@ import ProductList from "./product-list";
 import { CartContext } from "../_context/cart";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import Cart from "./cart";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "./ui/alert-dialog";
 
 interface ProductDetailProps {
   product: Prisma.ProductGetPayload<{
@@ -32,17 +42,29 @@ interface ProductDetailProps {
 const ProductDetails = ({ product, juices }: ProductDetailProps) => {
   const [quantity, setQuantity] = useState(1);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
+    useState(false);
   const { addProductToCart, products } = useContext(CartContext);
 
   const handleIncreaseQuantityClick = () => {
     setQuantity((currentState) => currentState + 1);
   };
 
-  console.log(products);
+  const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
+    addProductToCart({ product, quantity, emptyCart });
+    setIsCartOpen(true);
+  };
 
   const handleAddToCartClick = () => {
-    addProductToCart(product, quantity);
-    setIsCartOpen(true);
+    const hasDifferentRestaurantProduct = products.some(
+      (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
+    );
+
+    if (hasDifferentRestaurantProduct) {
+      return setIsConfirmationDialogOpen(true);
+    }
+
+    addToCart({ emptyCart: false });
   };
 
   const handleDecreaseQuantityClick = () => {
@@ -93,19 +115,19 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
             <Button
               size={"icon"}
               variant={"ghost"}
-              className="border border-solid border-muted-foreground"
+              className="h-8 w-8 border border-solid border-muted-foreground"
               onClick={handleDecreaseQuantityClick}
             >
-              <ChevronLeftIcon />
+              <ChevronLeftIcon size={18} />
             </Button>
             <span className="w-3">{quantity}</span>
             <Button
               size={"icon"}
               variant={"default"}
-              className="border border-solid border-muted-foreground"
+              className="h-8 w-8 border border-solid border-muted-foreground"
               onClick={handleIncreaseQuantityClick}
             >
-              <ChevronRightIcon />
+              <ChevronRightIcon size={18} />
             </Button>
           </div>
         </div>
@@ -161,6 +183,27 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
           <Cart />
         </SheetContent>
       </Sheet>
+
+      <AlertDialog
+        open={isConfirmationDialogOpen}
+        onOpenChange={setIsConfirmationDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Deseja esvaziar sua sacola?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Notamos que já existem produtos de outro restaurante na sacola.
+              Deseja esvaziá-la?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={() => addToCart({ emptyCart: true })}>
+              Esvaziar sacola e adicionar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
