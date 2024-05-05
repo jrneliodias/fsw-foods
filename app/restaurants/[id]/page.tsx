@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import RestaurantImage from "./_components/restaurant-image";
 import RestaurantDetails from "@/app/_components/restaurant-details";
 import ProductList from "@/app/_components/product-list";
+import CartBanner from "@/app/products/[id]/_components/cart-banner";
 
 interface RestaurantPageProps {
   params: {
@@ -69,6 +70,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
           <ProductList products={category.Product} />
         </div>
       ))}
+      <CartBanner restaurant={restaurant} />
     </div>
   );
 };
