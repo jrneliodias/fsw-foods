@@ -176,7 +176,7 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
         </div>
       </header>
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-        <SheetContent>
+        <SheetContent className="w-5/6">
           <SheetHeader>
             <SheetTitle className="text-left">Sacola</SheetTitle>
           </SheetHeader>
