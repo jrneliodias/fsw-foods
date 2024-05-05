@@ -26,6 +26,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import Link from "next/link";
 
 interface ProductDetailProps {
   product: Prisma.ProductGetPayload<{
@@ -79,17 +80,22 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
     <>
       <header className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-[#f4f4f4] py-5">
         <div className="flex items-center gap-1 px-5">
-          <div className="relative h-6 w-6">
-            <Image
-              src={product.restaurant.imageUrl}
-              alt={product.restaurant.name}
-              fill
-              className="rounded-full object-cover"
-            />
-          </div>
-          <span className="text-xs text-muted-foreground ">
-            {product.restaurant.name}
-          </span>
+          <Link
+            href={`/restaurants/${product.restaurantId}`}
+            className=" flex items-center gap-2 rounded-md border p-2"
+          >
+            <div className="relative h-6 w-6">
+              <Image
+                src={product.restaurant.imageUrl}
+                alt={product.restaurant.name}
+                fill
+                className="rounded-full object-cover"
+              />
+            </div>
+            <span className="text-xs text-muted-foreground ">
+              {product.restaurant.name}
+            </span>
+          </Link>
         </div>
         <h1 className="mb-2 mt-1 px-5 text-xl font-semibold">{product.name}</h1>
 
