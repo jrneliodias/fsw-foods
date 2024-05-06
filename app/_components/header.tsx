@@ -69,17 +69,23 @@ export const Header = () => {
                   <Button
                     variant={"ghost"}
                     className="flex w-full justify-start gap-3 rounded-full px-5 text-sm font-normal"
+                    asChild
                   >
-                    <HomeIcon size={16} />
-                    <p>Início</p>
+                    <Link href={"/"}>
+                      <HomeIcon size={16} />
+                      <p>Início</p>
+                    </Link>
                   </Button>
 
                   <Button
                     variant={"ghost"}
                     className="flex w-full justify-start gap-3 rounded-full px-5 text-sm font-normal"
+                    asChild
                   >
-                    <ScrollTextIcon size={16} />
-                    <p>Meus Pedidos</p>
+                    <Link href={"/my-orders"}>
+                      <ScrollTextIcon size={16} />
+                      <p>Meus Pedidos</p>
+                    </Link>
                   </Button>
 
                   <Button
