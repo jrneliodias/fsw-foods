@@ -22,8 +22,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
+  const router = useRouter();
   const [isSubmiLoading, setIsSubmitLoading] = useState(false);
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
     useState(false);
@@ -51,8 +53,17 @@ const Cart = () => {
         user: {
           connect: { id: data.user.id },
         },
+        products: {
+          createMany: {
+            data: products.map((product) => ({
+              productId: product.id,
+              quantity: product.quantity,
+            })),
+          },
+        },
       });
       clearCart();
+      router.push("/my-orders");
     } catch (error) {
       console.error(error);
     } finally {
