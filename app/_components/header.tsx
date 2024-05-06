@@ -38,7 +38,7 @@ export const Header = () => {
         <SheetTrigger>
           <MenuIcon />
         </SheetTrigger>
-        <SheetContent className="w-5/6">
+        <SheetContent className="">
           <SheetHeader>
             <SheetTitle className="text-left">Menu</SheetTitle>
           </SheetHeader>
