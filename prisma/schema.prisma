@@ -33,35 +33,43 @@ model Category {
 }
 
 model Product {
-  id                 String     @id @default(uuid())
+  id                 String         @id @default(uuid())
   name               String
   description        String
   imageUrl           String
-  price              Decimal    @db.Decimal(10, 2)
-  discountPercentage Int        @default(0)
+  price              Decimal        @db.Decimal(10, 2)
+  discountPercentage Int            @default(0)
   restaurantId       String
-  restaurant         Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant         Restaurant     @relation(fields: [restaurantId], references: [id])
   categoryId         String
-  category           Category   @relation(fields: [categoryId], references: [id])
-  order              Order[]
-  orderId            String?
-  createAt           DateTime   @default(now())
+  category           Category       @relation(fields: [categoryId], references: [id])
+  createAt           DateTime       @default(now())
+  orderProduct       OrderProduct[]
+}
+
+model OrderProduct {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
 }
 
 model Order {
-  id             String      @id @default(uuid())
+  id             String         @id @default(uuid())
   userId         String
-  user           User        @relation(fields: [userId], references: [id])
-  products       Product[]
-  deliveryFee    Decimal     @db.Decimal(10, 2)
-  subTotalPrice  Decimal     @db.Decimal(10, 2)
-  totalPrice     Decimal     @db.Decimal(10, 2)
+  user           User           @relation(fields: [userId], references: [id])
+  deliveryFee    Decimal        @db.Decimal(10, 2)
+  subTotalPrice  Decimal        @db.Decimal(10, 2)
+  totalPrice     Decimal        @db.Decimal(10, 2)
   totalDiscounts Int
   deliveryTime   Int
-  restaurant     Restaurant  @relation(fields: [restaurantId], references: [id])
+  restaurant     Restaurant     @relation(fields: [restaurantId], references: [id])
   restaurantId   String
-  createAt       DateTime    @default(now())
+  createAt       DateTime       @default(now())
   status         OrderStatus
+  products       OrderProduct[]
 }
 
 enum OrderStatus {
