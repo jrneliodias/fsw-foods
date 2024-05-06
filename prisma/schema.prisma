@@ -53,7 +53,6 @@ model Order {
   userId         String
   user           User        @relation(fields: [userId], references: [id])
   products       Product[]
-  imageUrl       String
   deliveryFee    Decimal     @db.Decimal(10, 2)
   subTotalPrice  Decimal     @db.Decimal(10, 2)
   totalPrice     Decimal     @db.Decimal(10, 2)
