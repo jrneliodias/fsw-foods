@@ -1,11 +1,15 @@
+"use client";
 import { Avatar, AvatarImage } from "@/app/_components/ui/avatar";
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Separator } from "@/app/_components/ui/separator";
+import { CartContext } from "@/app/_context/cart";
 import { formatCurrency } from "@/app/_helpers/price";
 import { Prisma } from "@prisma/client";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
 interface OrderItemProps {
   order: Prisma.OrderGetPayload<{
@@ -20,12 +24,24 @@ interface OrderItemProps {
   }>;
 }
 const OrderItem = ({ order }: OrderItemProps) => {
+  const router = useRouter();
+  const { addProductToCart } = useContext(CartContext);
+  const handleRedoOrderClick = () => {
+    for (const orderProduct of order.products) {
+      addProductToCart({
+        product: { ...orderProduct.product, restaurant: order.restaurant },
+        quantity: orderProduct.quantity,
+      });
+    }
+
+    router.push(`/restaurants/${order.restaurant.id}`);
+  };
   return (
     <Card>
       <CardContent className="space-y-3 p-5 ">
         <div className="flex items-center justify-between">
           <div
-            className={`w-fit rounded-full bg-muted px-2 py-1 text-muted-foreground ${order.status !== "COMPLETED" && "bg-green-500 text-white"}`}
+            className={`w-fit rounded-full px-2 py-1 text-muted-foreground ${order.status !== "COMPLETED" ? "bg-green-500 text-white" : "bg-muted"}`}
           >
             <p className="text-xs font-semibold">{order.status}</p>
           </div>
@@ -71,6 +87,7 @@ const OrderItem = ({ order }: OrderItemProps) => {
             variant={"ghost"}
             className="px-5 text-xs text-primary"
             disabled={order.status !== "COMPLETED"}
+            onClick={handleRedoOrderClick}
           >
             <p>Refazer pedido</p>
           </Button>
