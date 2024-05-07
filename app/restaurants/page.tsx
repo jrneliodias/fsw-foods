@@ -22,6 +22,7 @@ const RestaurantsPage = async () => {
       restaurant: true,
     },
   });
+
   return (
     <Suspense>
       <Restaurants favoritedrestaurants={userFavoriteRestaurants} />

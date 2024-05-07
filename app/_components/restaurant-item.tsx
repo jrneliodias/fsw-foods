@@ -6,11 +6,9 @@ import { formatCurrency } from "../_helpers/price";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { cn } from "../_lib/utils";
-import {
-  favoriteRestaurant,
-  unfavoriteRestaurant,
-} from "../_actions/restaurant";
-import { toast } from "sonner";
+
+import useHandleFavoriteRestaurant from "../_hooks/use-favorite-restaurant";
+import { isFavoriteRestaurant } from "../_helpers/restaurants";
 
 interface RestauranItemProps {
   restaurant: Restaurant;
@@ -24,24 +22,17 @@ const RestaurantItem = ({
   userId,
   userFavoritedRestaurants,
 }: RestauranItemProps) => {
-  const isFavoriteRestaurants = userFavoritedRestaurants.some(
-    (favoriteRestaurant) => favoriteRestaurant.restaurantId === restaurant.id,
+  const isFavorite = isFavoriteRestaurant(
+    userFavoritedRestaurants,
+    restaurant.id,
   );
 
-  const handleFavoriteClick = async () => {
-    if (!userId) return;
+  const { handleFavoriteClick } = useHandleFavoriteRestaurant({
+    restaurantId: restaurant.id,
+    userId,
+    isFavoriteRestaurant: isFavorite,
+  });
 
-    try {
-      if (isFavoriteRestaurants) {
-        await unfavoriteRestaurant(userId, restaurant.id);
-        return toast.success("Restaurante desfavoritado com sucesso!");
-      }
-      await favoriteRestaurant(userId, restaurant.id);
-      toast.success("Restaurante favoritado com sucesso!");
-    } catch (error) {
-      toast.error("Erro ao favoritar o restaurante.");
-    }
-  };
   return (
     <div className={cn(" space-y-3", classname)}>
       <div className="space-y-3">
@@ -61,7 +52,7 @@ const RestaurantItem = ({
           </Link>
 
           <Button
-            className={`absolute right-2 top-2 h-7 w-7 rounded-full${isFavoriteRestaurants ? "bg-primary" : " bg-muted-foreground "}`}
+            className={`absolute right-2 top-2 h-7 w-7 rounded-full${isFavorite ? "bg-primary" : " bg-muted-foreground "}`}
             onClick={handleFavoriteClick}
           >
             <HeartIcon size={16} className="fill-white" />
