@@ -90,6 +90,7 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
                 src={product.restaurant.imageUrl}
                 alt={product.restaurant.name}
                 fill
+                sizes={"100%"}
                 className="rounded-full object-cover"
               />
             </div>

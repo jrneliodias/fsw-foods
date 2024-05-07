@@ -30,7 +30,7 @@ const ProductItem = ({ product, classname }: ProductItemProps) => {
             src={product.imageUrl}
             fill
             alt={product.name}
-            sizes="100vw"
+            sizes="100%"
             className="rounded-lg object-cover shadow-md"
           />
 

@@ -42,7 +42,7 @@ const RestaurantItem = ({
               src={restaurant.imageUrl}
               fill
               alt={restaurant.name}
-              sizes="100vw"
+              sizes="100%"
               className="rounded-lg object-cover shadow-md"
             />
             <div className="absolute left-2 top-2 flex items-center gap-[2px] rounded-full bg-white px-2 py-[2px]">

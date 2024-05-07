@@ -28,6 +28,7 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
           <Image
             src={cartProduct.imageUrl}
             fill
+            sizes={"100%"}
             alt={cartProduct.name}
             className="rounded-lg object-cover"
           />
