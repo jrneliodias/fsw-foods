@@ -1,5 +1,6 @@
 import { Header } from "@/app/_components/header";
 import RestaurantItem from "@/app/_components/restaurant-item";
+import { prismaDecimalParse } from "@/app/_helpers/prisma";
 import { authOptions } from "@/app/_lib/auth";
 import { db } from "@/app/_lib/prisma";
 import { getServerSession } from "next-auth";
@@ -36,7 +37,7 @@ const RecommendedRestaurants = async () => {
           {restaurants.map((restaurant) => (
             <RestaurantItem
               key={restaurant.id}
-              restaurant={restaurant}
+              restaurant={prismaDecimalParse(restaurant)}
               userId={session?.user?.id}
               userFavoritedRestaurants={userFavoriteRestaurants}
               classname="min-w-full max-w-full"

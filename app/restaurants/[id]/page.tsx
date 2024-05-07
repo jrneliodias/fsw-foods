@@ -6,6 +6,7 @@ import ProductList from "@/app/_components/product-list";
 import CartBanner from "@/app/products/[id]/_components/cart-banner";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/_lib/auth";
+import { prismaDecimalParse } from "@/app/_helpers/prisma";
 
 interface RestaurantPageProps {
   params: {
@@ -73,24 +74,24 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
   return (
     <div>
       <RestaurantImage
-        restaurant={restaurant}
+        restaurant={prismaDecimalParse(restaurant)}
         userId={session?.user?.id}
-        userFavoritedRestaurants={favoriteRestaurants}
+        userFavoritedRestaurants={prismaDecimalParse(favoriteRestaurants)}
       />
-      <RestaurantDetails restaurant={restaurant} />
+      <RestaurantDetails restaurant={prismaDecimalParse(restaurant)} />
 
       <div className="mt-6 space-y-4 ">
         <h2 className="px-5 font-semibold"> Mais pedidos</h2>
-        <ProductList products={products} />
+        <ProductList products={prismaDecimalParse(products)} />
       </div>
 
       {restaurant.categories.map((category) => (
         <div className="mt-6 space-y-4 " key={category.id}>
           <h2 className="px-5 font-semibold">{category.name}</h2>
-          <ProductList products={category.Product} />
+          <ProductList products={prismaDecimalParse(category.Product)} />
         </div>
       ))}
-      <CartBanner restaurant={restaurant} />
+      <CartBanner restaurant={prismaDecimalParse(restaurant)} />
     </div>
   );
 };

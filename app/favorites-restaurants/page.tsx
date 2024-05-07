@@ -4,6 +4,7 @@ import { db } from "../_lib/prisma";
 import { Header } from "../_components/header";
 import { redirect } from "next/navigation";
 import RestaurantItem from "../_components/restaurant-item";
+import { prismaDecimalParse } from "../_helpers/prisma";
 
 const FavoriteRestaurantsPage = async () => {
   const session = await getServerSession(authOptions);
@@ -36,8 +37,10 @@ const FavoriteRestaurantsPage = async () => {
               >
                 <RestaurantItem
                   userId={session?.user?.id}
-                  restaurant={restaurant}
-                  userFavoritedRestaurants={userFavoriteRestaurants}
+                  restaurant={prismaDecimalParse(restaurant)}
+                  userFavoritedRestaurants={prismaDecimalParse(
+                    userFavoriteRestaurants,
+                  )}
                 />
               </div>
             ))

@@ -27,6 +27,7 @@ import {
   AlertDialogTitle,
 } from "./ui/alert-dialog";
 import Link from "next/link";
+import { prismaDecimalParse } from "../_helpers/prisma";
 
 interface ProductDetailProps {
   product: Prisma.ProductGetPayload<{
@@ -169,7 +170,7 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
         </div>
         <div className="mt-6 space-y-3">
           <h3 className="px-5 font-semibold"> Sucos</h3>
-          <ProductList products={juices} />
+          <ProductList products={prismaDecimalParse(juices)} />
         </div>
 
         <div className="mt-6 px-5">

@@ -7,6 +7,7 @@ import { searchForRestaurant } from "../_actions/search";
 import { Header } from "@/app/_components/header";
 import RestaurantItem from "@/app/_components/restaurant-item";
 import { useSession } from "next-auth/react";
+import { prismaDecimalParse } from "@/app/_helpers/prisma";
 
 interface RestaurantsProps {
   favoritedrestaurants: UserFavoriteRestaurant[];
@@ -42,8 +43,10 @@ const Restaurants = ({ favoritedrestaurants }: RestaurantsProps) => {
             <RestaurantItem
               key={restaurant.id}
               userId={session.data?.user?.id}
-              restaurant={restaurant}
-              userFavoritedRestaurants={favoritedrestaurants}
+              restaurant={prismaDecimalParse(restaurant)}
+              userFavoritedRestaurants={prismaDecimalParse(
+                favoritedrestaurants,
+              )}
               classname="min-w-full"
             />
           ))}

@@ -35,8 +35,10 @@ export const Header = () => {
       </Link>
 
       <Sheet>
-        <SheetTrigger>
-          <MenuIcon />
+        <SheetTrigger asChild>
+          <Button variant={"ghost"} size={"icon"}>
+            <MenuIcon />
+          </Button>
         </SheetTrigger>
         <SheetContent className="">
           <SheetHeader>

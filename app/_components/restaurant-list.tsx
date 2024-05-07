@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../_lib/auth";
 import { db } from "../_lib/prisma";
 import RestaurantItem from "./restaurant-item";
-
+import { prismaDecimalParse } from "../_helpers/prisma";
 async function RestaurantList() {
   const session = await getServerSession(authOptions);
   const restaurants = await db.restaurant.findMany({ take: 10 });
@@ -18,9 +18,9 @@ async function RestaurantList() {
       {restaurants.map((restaurant, index) => (
         <RestaurantItem
           key={index}
-          restaurant={restaurant}
+          restaurant={prismaDecimalParse(restaurant)}
           userId={session?.user?.id}
-          userFavoritedRestaurants={userFavoriteRestaurants}
+          userFavoritedRestaurants={prismaDecimalParse(userFavoriteRestaurants)}
           classname="min-w-[266px] max-w-[266px]"
         />
       ))}

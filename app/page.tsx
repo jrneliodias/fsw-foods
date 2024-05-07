@@ -8,6 +8,7 @@ import { db } from "./_lib/prisma";
 import PromoBanner from "./_components/promo-banner";
 import RestaurantList from "./_components/restaurant-list";
 import Link from "next/link";
+import { prismaDecimalParse } from "./_helpers/prisma";
 
 export default async function Home() {
   const products = await db.product.findMany({
@@ -51,7 +52,7 @@ export default async function Home() {
             </Link>
           </Button>
         </div>
-        <ProductList products={products} />
+        <ProductList products={prismaDecimalParse(products)} />
       </div>
       <div className="px-5 pt-6">
         <PromoBanner src={"/promo_banner_2.svg"} alt="A partir de 17,90" />
