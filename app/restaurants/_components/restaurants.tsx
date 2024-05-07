@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 import { searchForRestaurant } from "../_actions/search";
 import { Header } from "@/app/_components/header";
 import RestaurantItem from "@/app/_components/restaurant-item";
+import { useSession } from "next-auth/react";
 
 interface RestaurantsProps {
   favoritedrestaurants: UserFavoriteRestaurant[];
 }
 const Restaurants = ({ favoritedrestaurants }: RestaurantsProps) => {
+  const session = useSession();
   const searchParams = useSearchParams();
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
@@ -39,6 +41,7 @@ const Restaurants = ({ favoritedrestaurants }: RestaurantsProps) => {
           {restaurants.map((restaurant) => (
             <RestaurantItem
               key={restaurant.id}
+              userId={session.data?.user?.id}
               restaurant={restaurant}
               userFavoritedRestaurants={favoritedrestaurants}
               classname="min-w-full"
