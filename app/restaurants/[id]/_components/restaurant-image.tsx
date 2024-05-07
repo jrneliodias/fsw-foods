@@ -1,8 +1,11 @@
 "use client";
 
-import { favoriteRestaurant } from "@/app/_actions/restaurant";
+import {
+  favoriteRestaurant,
+  unfavoriteRestaurant,
+} from "@/app/_actions/restaurant";
 import { Button } from "@/app/_components/ui/button";
-import { Restaurant } from "@prisma/client";
+import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
 import { ChevronLeftIcon, HeartIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -11,9 +14,17 @@ import { toast } from "sonner";
 interface RestaurantImageProps {
   restaurant: Restaurant;
   userId?: string;
+  userFavoritedRestaurants: UserFavoriteRestaurant[];
 }
-function RestaurantImage({ userId, restaurant }: RestaurantImageProps) {
+function RestaurantImage({
+  userId,
+  restaurant,
+  userFavoritedRestaurants,
+}: RestaurantImageProps) {
   const router = useRouter();
+  const isFavoriteRestaurants = userFavoritedRestaurants.some(
+    (favoriteRestaurant) => favoriteRestaurant.restaurantId === restaurant.id,
+  );
 
   const handleBackClick = () => router.back();
 
@@ -21,6 +32,10 @@ function RestaurantImage({ userId, restaurant }: RestaurantImageProps) {
     if (!userId) return;
 
     try {
+      if (isFavoriteRestaurants) {
+        await unfavoriteRestaurant(userId, restaurant.id);
+        return toast.success("Restaurante desfavoritado com sucesso!");
+      }
       await favoriteRestaurant(userId, restaurant.id);
       toast.success("Restaurante favoritado com sucesso!");
     } catch (error) {
@@ -44,7 +59,8 @@ function RestaurantImage({ userId, restaurant }: RestaurantImageProps) {
         <ChevronLeftIcon />
       </Button>
       <Button
-        className="absolute right-4 top-4 h-10 w-10 rounded-full bg-muted-foreground "
+        size={"icon"}
+        className={`absolute right-4 top-4 h-10 w-10 rounded-full ${isFavoriteRestaurants ? "bg-primary" : " bg-muted-foreground "}`}
         onClick={handleFavoriteClick}
       >
         <HeartIcon size={20} className="fill-white" />
