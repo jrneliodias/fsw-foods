@@ -91,9 +91,12 @@ export const Header = () => {
                   <Button
                     variant={"ghost"}
                     className="flex w-full justify-start gap-3 rounded-full px-5 text-sm font-normal"
+                    asChild
                   >
-                    <HeartIcon size={16} />
-                    <p>Restaurantes Favoritos</p>
+                    <Link href={"/favorites-restaurants"}>
+                      <HeartIcon size={16} />
+                      <p>Restaurantes Favoritos</p>
+                    </Link>
                   </Button>
                 </div>
                 <Separator className="my-6 bg-[#cfcdcd]" />
