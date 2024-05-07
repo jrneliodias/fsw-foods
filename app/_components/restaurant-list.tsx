@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../_lib/auth";
 import { db } from "../_lib/prisma";
-import RestauranItem from "./restaurant-item";
+import RestaurantItem from "./restaurant-item";
 
 async function RestaurantList() {
   const session = await getServerSession(authOptions);
@@ -14,13 +14,14 @@ async function RestaurantList() {
   });
 
   return (
-    <div className="flex gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
+    <div className="flex gap-4 overflow-x-scroll px-5  [&::-webkit-scrollbar]:hidden">
       {restaurants.map((restaurant, index) => (
-        <RestauranItem
+        <RestaurantItem
           key={index}
           restaurant={restaurant}
           userId={session?.user?.id}
           userFavoritedRestaurants={userFavoriteRestaurants}
+          classname="min-w-[266px] max-w-[266px]"
         />
       ))}
     </div>

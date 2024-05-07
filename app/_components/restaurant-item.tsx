@@ -18,7 +18,7 @@ interface RestauranItemProps {
   userId?: string;
   userFavoritedRestaurants: UserFavoriteRestaurant[];
 }
-const RestauranItem = ({
+const RestaurantItem = ({
   restaurant,
   classname,
   userId,
@@ -43,7 +43,7 @@ const RestauranItem = ({
     }
   };
   return (
-    <div className={cn("min-w-[266px] max-w-[266px] space-y-3", classname)}>
+    <div className={cn(" space-y-3", classname)}>
       <div className="space-y-3">
         <div className="relative h-[136px] w-full">
           <Link href={`/restaurants/${restaurant.id}`}>
@@ -95,4 +95,4 @@ const RestauranItem = ({
   );
 };
 
-export default RestauranItem;
+export default RestaurantItem;

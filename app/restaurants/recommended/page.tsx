@@ -1,5 +1,5 @@
 import { Header } from "@/app/_components/header";
-import RestauranItem from "@/app/_components/restaurant-item";
+import RestaurantItem from "@/app/_components/restaurant-item";
 import { db } from "@/app/_lib/prisma";
 import React from "react";
 
@@ -14,7 +14,7 @@ const RecommendedRestaurants = async () => {
         </h2>
         <div className="flex w-full flex-col gap-6">
           {restaurants.map((restaurant) => (
-            <RestauranItem
+            <RestaurantItem
               key={restaurant.id}
               restaurant={restaurant}
               classname="min-w-full max-w-full"
