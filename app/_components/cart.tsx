@@ -36,6 +36,11 @@ const Cart = ({ setIsOpen }: CartProps) => {
   const { data } = useSession();
   const { products, subTotalPrice, totalPrice, totalDiscounts, clearCart } =
     useContext(CartContext);
+  const handleContinueShoppingClick = () => {
+    const restaurantId = products?.[0].restaurant.id;
+    setIsOpen(false);
+    router.push(`/restaurants/${restaurantId}`);
+  };
   const handleFinishedOrdeClick = async () => {
     if (!data?.user) return;
 
@@ -121,6 +126,9 @@ const Cart = ({ setIsOpen }: CartProps) => {
               </div>
             </CardContent>
           </Card>
+          <Button variant={"outline"} onClick={handleContinueShoppingClick}>
+            Continuar comprando
+          </Button>
           <Button
             disabled={!data?.user || isSubmiLoading}
             onClick={() => setIsConfirmationDialogOpen(true)}
