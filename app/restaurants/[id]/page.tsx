@@ -4,6 +4,8 @@ import RestaurantImage from "./_components/restaurant-image";
 import RestaurantDetails from "@/app/_components/restaurant-details";
 import ProductList from "@/app/_components/product-list";
 import CartBanner from "@/app/products/[id]/_components/cart-banner";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/_lib/auth";
 
 interface RestaurantPageProps {
   params: {
@@ -12,6 +14,8 @@ interface RestaurantPageProps {
 }
 
 const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
+  const session = await getServerSession(authOptions);
+
   const restaurant = await db.restaurant.findUnique({
     where: {
       id,
@@ -51,12 +55,28 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
     },
   });
 
+  const favoriteRestaurants = await db.userFavoriteRestaurant.findMany({
+    where: {
+      userId: session?.user.id,
+    },
+    orderBy: {
+      createAt: "desc",
+    },
+    include: {
+      restaurant: true,
+    },
+  });
+
   if (!restaurant) {
     return notFound();
   }
   return (
     <div>
-      <RestaurantImage restaurant={restaurant} />
+      <RestaurantImage
+        restaurant={restaurant}
+        userId={session?.user?.id}
+        userFavoritedRestaurants={favoriteRestaurants}
+      />
       <RestaurantDetails restaurant={restaurant} />
 
       <div className="mt-6 space-y-4 ">
