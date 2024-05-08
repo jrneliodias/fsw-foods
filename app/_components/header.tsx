@@ -29,9 +29,16 @@ export const Header = () => {
   const handleSignOutClick = () => signOut();
   const handleSignInClick = () => signIn();
   return (
-    <div className="flex justify-between px-5 pt-6">
+    <div className="flex items-center justify-between px-5 pt-6 lg:mx-32 lg:p-0">
       <Link href={"/"}>
-        <Image src={"/fsw-foods.svg"} width={100} height={30} alt="FSW Foods" />
+        <Image
+          src={"/fsw-foods.svg"}
+          width={0}
+          height={0}
+          sizes="100%"
+          alt="FSW Foods"
+          className=" h-8 w-auto sm:h-12"
+        />
       </Link>
 
       <Sheet>

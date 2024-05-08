@@ -28,6 +28,7 @@ import {
 } from "./ui/alert-dialog";
 import Link from "next/link";
 import { prismaDecimalParse } from "../_helpers/prisma";
+import ProductImage from "../products/[id]/_components/product-image";
 
 interface ProductDetailProps {
   product: Prisma.ProductGetPayload<{
@@ -78,111 +79,123 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
     });
   };
   return (
-    <>
-      <header className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-[#f4f4f4] py-5">
-        <div className="flex items-center gap-1 px-5">
-          <Link
-            href={`/restaurants/${product.restaurantId}`}
-            className=" flex items-center gap-2 rounded-md border p-2"
-          >
-            <div className="relative h-6 w-6">
-              <Image
-                src={product.restaurant.imageUrl}
-                alt={product.restaurant.name}
-                fill
-                sizes={"100%"}
-                className="rounded-full object-cover"
-              />
-            </div>
-            <span className="text-xs text-muted-foreground ">
-              {product.restaurant.name}
-            </span>
-          </Link>
-        </div>
-        <h1 className="mb-2 mt-1 px-5 text-xl font-semibold">{product.name}</h1>
+    <div className="">
+      <div className="lg:flex lg:gap-8">
+        <ProductImage product={product} />
+        <header className="relative z-50 mt-[-1.5rem] rounded-t-3xl  bg-[#f4f4f4] py-5 lg:m-0 lg:w-5/6">
+          <div className="flex items-center gap-1 px-5">
+            <Link
+              href={`/restaurants/${product.restaurantId}`}
+              className=" flex items-center gap-2 rounded-md border p-2"
+            >
+              <div className="relative h-6 w-6">
+                <Image
+                  src={product.restaurant.imageUrl}
+                  alt={product.restaurant.name}
+                  fill
+                  sizes={"100%"}
+                  className="rounded-full object-cover"
+                />
+              </div>
+              <span className="text-xs text-muted-foreground ">
+                {product.restaurant.name}
+              </span>
+            </Link>
+          </div>
+          <h1 className="mb-2 mt-1 px-5 text-xl font-semibold">
+            {product.name}
+          </h1>
 
-        <div className="flex justify-between px-5">
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-xl font-semibold">
-                {formatCurrency(calculateProductTotalPrice(product))}
-              </h2>
+          <div className="flex justify-between px-5">
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-xl font-semibold">
+                  {formatCurrency(calculateProductTotalPrice(product))}
+                </h2>
 
-              {product.discountPercentage > 0 && (
-                <DiscountBadge product={product} />
+                {product.discountPercentage > 0 && (
+                  <DiscountBadge product={product} />
+                )}
+              </div>
+              {product.discountPercentage && (
+                <p className="text-sm text-muted-foreground">
+                  De: {formatCurrency(Number(product.price))}
+                </p>
               )}
             </div>
-            {product.discountPercentage && (
-              <p className="text-sm text-muted-foreground">
-                De: {formatCurrency(Number(product.price))}
-              </p>
-            )}
-          </div>
 
-          <div className="flex items-center gap-3 ">
-            <Button
-              size={"icon"}
-              variant={"ghost"}
-              className="h-8 w-8 border border-solid border-muted-foreground"
-              onClick={handleDecreaseQuantityClick}
-            >
-              <ChevronLeftIcon size={18} />
-            </Button>
-            <span className="w-3">{quantity}</span>
-            <Button
-              size={"icon"}
-              variant={"default"}
-              className="h-8 w-8 border border-solid border-muted-foreground"
-              onClick={handleIncreaseQuantityClick}
-            >
-              <ChevronRightIcon size={18} />
-            </Button>
-          </div>
-        </div>
-        <Card className="mx-5 mt-6 flex justify-around py-2">
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <span>Entrega</span>
-              <BikeIcon size={16} />
+            <div className="flex items-center gap-3 ">
+              <Button
+                size={"icon"}
+                variant={"ghost"}
+                className="h-8 w-8 border border-solid border-muted-foreground"
+                onClick={handleDecreaseQuantityClick}
+              >
+                <ChevronLeftIcon size={18} />
+              </Button>
+              <span className="w-3">{quantity}</span>
+              <Button
+                size={"icon"}
+                variant={"default"}
+                className="h-8 w-8 border border-solid border-muted-foreground"
+                onClick={handleIncreaseQuantityClick}
+              >
+                <ChevronRightIcon size={18} />
+              </Button>
             </div>
-            {Number(product.restaurant.deliveryFee) > 0 ? (
-              <p className="text-sm font-semibold">
-                {formatCurrency(Number(product.restaurant.deliveryFee))}
-              </p>
-            ) : (
-              <p className="text-sm font-semibold">Grátis</p>
-            )}
           </div>
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <span>Entrega</span>
-              <TimerIcon size={16} />
+          <Card className="mx-5 mt-6 flex justify-around py-2">
+            <div className="flex flex-col items-center">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <span>Entrega</span>
+                <BikeIcon size={16} />
+              </div>
+              {Number(product.restaurant.deliveryFee) > 0 ? (
+                <p className="text-sm font-semibold">
+                  {formatCurrency(Number(product.restaurant.deliveryFee))}
+                </p>
+              ) : (
+                <p className="text-sm font-semibold">Grátis</p>
+              )}
             </div>
-            {
-              <p className="text-sm font-semibold">
-                {product.restaurant.deliveryTimeMinutes} min
-              </p>
-            }
+            <div className="flex flex-col items-center">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <span>Entrega</span>
+                <TimerIcon size={16} />
+              </div>
+              {
+                <p className="text-sm font-semibold">
+                  {product.restaurant.deliveryTimeMinutes} min
+                </p>
+              }
+            </div>
+          </Card>
+          <div className="mt-6 space-y-3 px-5">
+            <h3 className="font-semibold"> Sobre</h3>
+            <p className="text-sm text-muted-foreground">
+              {product.description}
+            </p>
           </div>
-        </Card>
-        <div className="mt-6 space-y-3 px-5">
-          <h3 className="font-semibold"> Sobre</h3>
-          <p className="text-sm text-muted-foreground">{product.description}</p>
-        </div>
-        <div className="mt-6 space-y-3">
-          <h3 className="px-5 font-semibold"> Sucos</h3>
-          <ProductList products={prismaDecimalParse(juices)} />
-        </div>
+          <div className="mt-6 hidden px-5 lg:block">
+            <Button
+              className="w-full font-semibold"
+              onClick={handleAddToCartClick}
+            >
+              Adicionar à sacola
+            </Button>
+          </div>
+        </header>
+      </div>
+      <div className="mt-6 space-y-3">
+        <h3 className="px-5 font-semibold lg:p-0"> Sucos</h3>
+        <ProductList products={prismaDecimalParse(juices)} />
+      </div>
 
-        <div className="mt-6 px-5">
-          <Button
-            className="w-full font-semibold"
-            onClick={handleAddToCartClick}
-          >
-            Adicionar à sacola
-          </Button>
-        </div>
-      </header>
+      <div className="mt-6 px-5 lg:hidden">
+        <Button className="w-full font-semibold" onClick={handleAddToCartClick}>
+          Adicionar à sacola
+        </Button>
+      </div>
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
         <SheetContent className="w-5/6">
           <SheetHeader>
@@ -212,7 +225,7 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </>
+    </div>
   );
 };
 

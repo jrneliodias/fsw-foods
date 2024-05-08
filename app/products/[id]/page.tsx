@@ -1,8 +1,8 @@
 import { db } from "@/app/_lib/prisma";
 import { notFound } from "next/navigation";
-import ProductImage from "./_components/product-image";
 import ProductDetails from "@/app/_components/product-details";
 import { prismaDecimalParse } from "@/app/_helpers/prisma";
+import { Header } from "@/app/_components/header";
 
 interface ProductPageProps {
   params: {
@@ -37,12 +37,14 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
   });
 
   return (
-    <section className="mb-6">
-      <ProductImage product={prismaDecimalParse(products)} />
-      <ProductDetails
-        product={prismaDecimalParse(products)}
-        juices={prismaDecimalParse(juices)}
-      />
+    <section className="mb-6 lg:space-y-5">
+      <Header />
+      <div className="lg:px-32">
+        <ProductDetails
+          product={prismaDecimalParse(products)}
+          juices={prismaDecimalParse(juices)}
+        />
+      </div>
     </section>
   );
 };
