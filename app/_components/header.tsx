@@ -29,7 +29,7 @@ export const Header = () => {
   const handleSignOutClick = () => signOut();
   const handleSignInClick = () => signIn();
   return (
-    <div className="flex items-center justify-between px-5 pt-6 lg:mx-32 lg:p-0">
+    <div className="flex items-center justify-between px-5 pt-6 md:px-20 lg:mx-32 lg:p-0">
       <Link href={"/"}>
         <Image
           src={"/fsw-foods.svg"}

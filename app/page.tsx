@@ -29,19 +29,19 @@ export default async function Home() {
   });
   return (
     <div className="pb-4">
-      <div className="lg:py-5">
+      <div className="md:py-5">
         <Header />
       </div>
-      <div className="overflow-y-hidden px-5 pt-6 lg:flex lg:h-[calc(100vh-4rem)] lg:justify-between lg:bg-primary lg:px-32">
-        <div className="text-white  lg:flex lg:max-w-[41.25rem] lg:flex-col lg:justify-center">
-          <div className="hidden w-full lg:block lg:pb-8">
+      <div className="overflow-y-hidden px-5 pt-6 md:flex md:h-[calc(100vh-4rem)] md:justify-between md:bg-primary md:px-20 lg:px-32">
+        <div className="text-white  md:flex md:max-w-[41.25rem] md:flex-col md:justify-center">
+          <div className="hidden w-full md:block md:pb-8">
             <h1 className=" mb-2 text-6xl font-bold ">Está com fome?</h1>
-            <p className="text-lg">
-              Com apenas alguns cliques, encontre refeições acessíveis perto de
+            <p className="text-md">
+              Com apenas amduns cliques, encontre refeições acessíveis perto de
               você.
             </p>
           </div>
-          <div className="lg:rounded-lg lg:bg-white lg:p-6">
+          <div className="md:rounded-md md:bg-white md:p-6">
             <Search />
           </div>
         </div>
@@ -56,15 +56,15 @@ export default async function Home() {
           />
         </div>
       </div>
-      <div className="px-5 pt-6 lg:p-10 lg:px-32">
+      <div className="px-5 pt-6 md:p-10 md:px-20 lg:px-32">
         <CategoryList />
       </div>
-      <div className="lg:grid lg:grid-cols-2 lg:gap-5 lg:px-32">
-        <div className="px-5 pt-6 lg:p-0">
+      <div className="md:grid md:grid-cols-2 md:gap-5 md:px-20 lg:px-32">
+        <div className="px-5 pt-6 md:p-0">
           <PromoBanner src={"/promo_banner.svg"} alt="Promoção de Pizza" />
         </div>
-        <div className=" space-y-3 pt-6 lg:order-last lg:col-span-2 lg:w-full lg:px-0">
-          <div className="flex items-center justify-between px-5 ">
+        <div className=" space-y-3 pt-6 md:order-last md:col-span-2 md:w-full md:px-0">
+          <div className="flex items-center justify-between px-5 md:px-0">
             <h2 className="font-semibold"> Pedidos Recomendados</h2>
             <Button
               asChild
@@ -79,12 +79,12 @@ export default async function Home() {
           </div>
           <ProductList products={prismaDecimalParse(products)} />
         </div>
-        <div className="px-5 pt-6 lg:p-0">
+        <div className="px-5 pt-6 md:p-0">
           <PromoBanner src={"/promo_banner_2.svg"} alt="A partir de 17,90" />
         </div>
       </div>
-      <div className=" space-y-3 pt-6 lg:px-32">
-        <div className="flex items-center justify-between px-5 ">
+      <div className=" space-y-3 pt-6 md:px-20 lg:px-32">
+        <div className="flex items-center justify-between px-5 md:px-0 ">
           <h2 className="font-semibold"> Restaurantes Recomendados</h2>
           <Button
             asChild

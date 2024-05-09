@@ -80,9 +80,9 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
   };
   return (
     <div className="">
-      <div className="lg:flex lg:gap-8">
+      <div className="md:flex md:gap-8">
         <ProductImage product={product} />
-        <header className="relative z-50 mt-[-1.5rem] rounded-t-3xl  bg-[#f4f4f4] py-5 lg:m-0 lg:w-5/6">
+        <header className="relative z-50 mt-[-1.5rem] rounded-t-3xl  bg-[#f4f4f4] py-5 md:m-0 md:w-5/6">
           <div className="flex items-center gap-1 px-5">
             <Link
               href={`/restaurants/${product.restaurantId}`}
@@ -176,7 +176,7 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
               {product.description}
             </p>
           </div>
-          <div className="mt-6 hidden px-5 lg:block">
+          <div className="mt-6 hidden px-5 md:block">
             <Button
               className="w-full font-semibold"
               onClick={handleAddToCartClick}
@@ -187,11 +187,11 @@ const ProductDetails = ({ product, juices }: ProductDetailProps) => {
         </header>
       </div>
       <div className="mt-6 space-y-3">
-        <h3 className="px-5 font-semibold lg:p-0"> Sucos</h3>
+        <h3 className="px-5 font-semibold md:p-0"> Sucos</h3>
         <ProductList products={prismaDecimalParse(juices)} />
       </div>
 
-      <div className="mt-6 px-5 lg:hidden">
+      <div className="mt-6 px-5 md:hidden">
         <Button className="w-full font-semibold" onClick={handleAddToCartClick}>
           Adicionar à sacola
         </Button>

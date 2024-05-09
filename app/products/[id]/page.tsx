@@ -37,9 +37,9 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
   });
 
   return (
-    <section className="mb-6 lg:space-y-5">
+    <section className="mb-6 md:space-y-5">
       <Header />
-      <div className="lg:px-32">
+      <div className="md:px-20 lg:px-32">
         <ProductDetails
           product={prismaDecimalParse(products)}
           juices={prismaDecimalParse(juices)}
