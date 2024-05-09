@@ -29,7 +29,7 @@ export default async function Home() {
   });
   return (
     <main className="bg-white pb-4">
-      <header className="md:py-5">
+      <header className="">
         <Header haveSearchbar={false} />
       </header>
       <div className="overflow-y-hidden px-5 pt-6 md:flex md:h-[calc(100vh-4rem)] md:justify-between md:bg-primary md:px-20 lg:px-32">
