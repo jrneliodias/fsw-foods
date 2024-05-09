@@ -19,11 +19,11 @@ const RecommendedProductsPage = async () => {
     },
   });
   return (
-    <>
-      <Header />
-      <div className="my-5 px-5">
+    <div>
+      <Header haveSearchbar={true} />
+      <div className="my-5 px-5 md:px-20 lg:px-32 ">
         <h2 className="mb-3 text-lg font-semibold">Produtos Recomendados</h2>
-        <div className="grid w-full grid-cols-2 gap-6">
+        <div className="grid w-full grid-cols-2 gap-6 lg:flex lg:flex-row lg:flex-wrap lg:object-center">
           {products.map((product) => (
             <ProductItem
               key={product.id}
@@ -33,7 +33,7 @@ const RecommendedProductsPage = async () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

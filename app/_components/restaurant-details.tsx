@@ -14,8 +14,8 @@ interface RestaurantDetailProps {
 }
 const RestaurantDetails = ({ restaurant }: RestaurantDetailProps) => {
   return (
-    <header className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-[#f4f4f4] p-5">
-      <div className="flex items-center gap-1">
+    <header className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-[#f4f4f4] p-5 md:m-0 md:flex md:h-full md:flex-col md:justify-between md:rounded-lg">
+      <div className="flex items-center gap-1 lg:gap-5">
         <div className="relative h-8 w-8">
           <Image
             src={restaurant.imageUrl}
@@ -35,7 +35,7 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailProps) => {
         </div>
       </div>
 
-      <Card className="mt-6 flex justify-around py-2">
+      <Card className="mt-6 flex justify-around py-2  lg:flex-col lg:gap-8 lg:p-5">
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-2 text-muted-foreground">
             <span>Entrega</span>
@@ -57,7 +57,7 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailProps) => {
           </span>
         </div>
       </Card>
-      <div className="mt-3 flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+      <div className="mt-3 flex justify-around gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
         {restaurant.categories.map((category) => (
           <div
             className="min-w-[100px] rounded-lg border-2 bg-[#F4F4F4] text-center"

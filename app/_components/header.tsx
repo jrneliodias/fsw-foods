@@ -22,14 +22,18 @@ import {
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { Separator } from "./ui/separator";
+import Search from "./search";
 
-export const Header = () => {
+interface HeaderProps {
+  haveSearchbar: boolean;
+}
+export const Header = ({ haveSearchbar }: HeaderProps) => {
   const { data } = useSession();
 
   const handleSignOutClick = () => signOut();
   const handleSignInClick = () => signIn();
   return (
-    <div className="flex items-center justify-between px-5 pt-6 md:px-20 lg:mx-32 lg:p-0">
+    <div className="flex items-center justify-between bg-white px-5 py-5 pt-6 md:px-20 lg:px-32">
       <Link href={"/"}>
         <Image
           src={"/fsw-foods.svg"}
@@ -40,6 +44,11 @@ export const Header = () => {
           className=" h-8 w-auto sm:h-12"
         />
       </Link>
+      {haveSearchbar && (
+        <div className="hidden w-1/2 md:block">
+          <Search />
+        </div>
+      )}
 
       <Sheet>
         <SheetTrigger asChild>

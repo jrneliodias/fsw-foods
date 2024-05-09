@@ -29,10 +29,10 @@ const MyOrdersPage = async () => {
   });
   return (
     <>
-      <Header />
-      <div className="px-5 py-6">
-        <h2 className="font-semibold">Meus pedidos</h2>
-        <div className="flex flex-col gap-2 py-5">
+      <Header haveSearchbar={true} />
+      <div className="px-5 py-6 md:px-20 lg:px-32">
+        <h2 className="font-semibold md:text-xl">Meus pedidos</h2>
+        <div className="flex flex-col gap-2 py-5 md:flex-wrap md:gap-3 lg:flex-row lg:gap-5">
           {orders.map((order) => (
             <OrderItem key={order.id} order={order} />
           ))}

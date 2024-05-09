@@ -40,7 +40,7 @@ const OrderItem = ({ order }: OrderItemProps) => {
     router.push(`/restaurants/${order.restaurant.id}`);
   };
   return (
-    <Card>
+    <Card className="md:min-w-96">
       <CardContent className="space-y-3 p-5 ">
         <div className="flex items-center justify-between">
           <div

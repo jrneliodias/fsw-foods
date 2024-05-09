@@ -21,7 +21,7 @@ export default function Search() {
   };
 
   return (
-    <form className="flex gap-4 " onSubmit={handleSearchSubmit}>
+    <form className="flex gap-4 text-black" onSubmit={handleSearchSubmit}>
       <Input
         placeholder="Buscar restaurantes"
         className="border-none"

@@ -28,10 +28,10 @@ export default async function Home() {
     },
   });
   return (
-    <div className="pb-4">
-      <div className="md:py-5">
-        <Header />
-      </div>
+    <main className="bg-white pb-4">
+      <header className="md:py-5">
+        <Header haveSearchbar={false} />
+      </header>
       <div className="overflow-y-hidden px-5 pt-6 md:flex md:h-[calc(100vh-4rem)] md:justify-between md:bg-primary md:px-20 lg:px-32">
         <div className="text-white  md:flex md:max-w-[41.25rem] md:flex-col md:justify-center">
           <div className="hidden w-full md:block md:pb-8">
@@ -99,6 +99,6 @@ export default async function Home() {
         </div>
         <RestaurantList />
       </div>
-    </div>
+    </main>
   );
 }

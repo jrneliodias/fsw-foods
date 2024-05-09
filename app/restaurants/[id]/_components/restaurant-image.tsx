@@ -32,13 +32,13 @@ function RestaurantImage({
   });
 
   return (
-    <div className="relative z-10 h-[250px] w-full">
+    <div className="relative z-10 h-[250px] w-full lg:h-[380px]">
       <Image
         src={restaurant.imageUrl}
         alt={restaurant.name}
         fill
         sizes={"100%"}
-        className="object-cover"
+        className="rounded-lg object-cover"
       />
       <Button
         className="absolute left-4 top-4 rounded-full bg-white text-foreground hover:text-white"

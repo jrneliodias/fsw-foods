@@ -31,10 +31,10 @@ const CategoriesPage = async ({ params: { id } }: CategoriesPageProps) => {
   }
   return (
     <>
-      <Header />
-      <div className="my-5 px-5">
+      <Header haveSearchbar={true} />
+      <div className="my-5 px-5 md:px-20 lg:px-32">
         <h2 className="mb-3 text-lg font-semibold">{category.name}</h2>
-        <div className="grid w-full grid-cols-2 gap-6">
+        <div className="grid w-full grid-cols-2 gap-6 lg:flex lg:flex-row lg:flex-wrap lg:object-center">
           {category?.Product.map((product) => (
             <ProductItem
               key={product.id}
