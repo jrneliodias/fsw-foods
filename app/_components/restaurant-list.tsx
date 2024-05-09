@@ -5,7 +5,12 @@ import RestaurantItem from "./restaurant-item";
 import { prismaDecimalParse } from "../_helpers/prisma";
 async function RestaurantList() {
   const session = await getServerSession(authOptions);
-  const restaurants = await db.restaurant.findMany({ take: 10 });
+  const restaurants = await db.restaurant.findMany({
+    orderBy: {
+      rating: "desc",
+    },
+    take: 10,
+  });
 
   const userFavoriteRestaurants = await db.userFavoriteRestaurant.findMany({
     where: {

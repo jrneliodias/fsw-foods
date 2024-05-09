@@ -47,7 +47,11 @@ const RestaurantItem = ({
             />
             <div className="absolute left-2 top-2 flex items-center gap-[2px] rounded-full bg-white px-2 py-[2px]">
               <StarIcon size={12} className="fill-yellow-400 text-yellow-400" />
-              <span className="text-xs font-semibold">5.0</span>
+              {/* insert the restaurant rating with one decimal place */}
+
+              <span className="text-xs font-semibold">
+                {Number(restaurant.rating).toFixed(1)}
+              </span>
             </div>
           </Link>
 

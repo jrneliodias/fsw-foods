@@ -8,7 +8,11 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const RecommendedRestaurants = async () => {
-  const restaurants = await db.restaurant.findMany({});
+  const restaurants = await db.restaurant.findMany({
+    orderBy: {
+      rating: "desc",
+    },
+  });
 
   const session = await getServerSession(authOptions);
 
