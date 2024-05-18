@@ -7,7 +7,7 @@ import {
   CardHeader,
 } from "@/app/_components/ui/card";
 import { ReactNode } from "react";
-import AuthHeader from "@/app/auth/login/_components/header";
+import AuthHeader from "@/app/auth/_components/header";
 import Social from "./social";
 import BackButton from "./back-button";
 
