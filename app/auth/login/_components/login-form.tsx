@@ -17,8 +17,14 @@ import { Input } from "@/app/_components/ui/input";
 import { Button } from "@/app/_components/ui/button";
 import FormError from "./form-error";
 import FormSucess from "./form-sucess";
+import { login } from "@/app/_actions/login";
+import { useState, useTransition } from "react";
 
 const LoginForm = () => {
+  const [sucess, setSucess] = useState<string | undefined>("");
+  const [error, setError] = useState<string | undefined>("");
+  const [isPeding, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -28,7 +34,12 @@ const LoginForm = () => {
   });
 
   const onSubmit = (data: z.infer<typeof LoginSchema>) => {
-    console.log(data);
+    startTransition(() => {
+      login(data).then((response) => {
+        setError(response.error);
+        setSucess(response.sucess);
+      });
+    });
   };
   return (
     <CardWrapper
@@ -54,6 +65,7 @@ const LoginForm = () => {
                   <FormControl>
                     <Input
                       {...field}
+                      disabled={isPeding}
                       type="email"
                       placeholder="john.doe@mail.com"
                     />
@@ -74,19 +86,25 @@ const LoginForm = () => {
                     Password
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} type="password" placeholder="******" />
+                    <Input
+                      {...field}
+                      disabled={isPeding}
+                      type="password"
+                      placeholder="******"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <FormError message="" />
-          <FormSucess message="" />
+          <FormError message={error ?? ""} />
+          <FormSucess message={sucess ?? ""} />
           <Button
             variant={"default"}
             type="submit"
             className="w-full font-normal"
+            disabled={isPeding}
           >
             Login
           </Button>
